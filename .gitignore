@@ -1,0 +1,11 @@
+.procmonitor.ko.cmd
+.procmonitor.mod.o.cmd
+.procmonitor.o.cmd
+.tmp_versions/
+Module.symvers
+modules.order
+procmonitor.ko
+procmonitor.mod.c
+procmonitor.mod.o
+procmonitor.o
+
