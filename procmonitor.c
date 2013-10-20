@@ -1,17 +1,18 @@
 #include <linux/module.h>
 #include <linux/sched.h>
 #include <linux/timer.h>
+#include <linux/cred.h>
 
 static struct timer_list procmonitor_timer;
 
-static void procmonitor_check_proc_tree(unsigned long curr)
+static void procmonitor_check_proc_tree(unsigned long unused)
 {
 	int ret;
-	struct task_struct *task = (struct task_struct*)curr;
+	struct task_struct *task;
 
-	while (task && task->pid != 0) {
-        printk(KERN_INFO "parent process: %s, PID: %d", task->comm, task->pid);
-        task = task->parent;
+	/* Traversing all tasks */
+	for_each_process(task) {
+		printk(KERN_INFO "parent process: %s, PID: %d\n", task->comm, task->pid);
 	}
 
 	/* Update the expiration time so that the callback got called again */
@@ -28,8 +29,7 @@ static int __init procmonitor_init(void)
 	printk(KERN_INFO "Starting module.\n");
 
 	/* Setting up our timer */
-	setup_timer(&procmonitor_timer, procmonitor_check_proc_tree,
-		(unsigned long) current);
+	setup_timer(&procmonitor_timer, procmonitor_check_proc_tree, 0);
 
 	ret = mod_timer(&procmonitor_timer, jiffies + msecs_to_jiffies(200));
 
