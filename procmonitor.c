@@ -12,7 +12,7 @@ static void procmonitor_check_proc_tree(unsigned long unused)
 
 	/* Traversing all tasks */
 	for_each_process(task) {
-		printk(KERN_INFO "parent process: %s, PID: %d\n", task->comm, task->pid);
+		printk(KERN_INFO "process: %s, PID: %d\n", task->comm, task->pid);
 	}
 
 	/* Update the expiration time so that the callback got called again */
