@@ -2,8 +2,6 @@
 #include <linux/sched.h>
 #include <linux/timer.h>
 
-static void procmonitor_check_proc_tree(unsigned long curr);
-
 static struct timer_list procmonitor_timer;
 
 static void procmonitor_check_proc_tree(unsigned long curr)
