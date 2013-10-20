@@ -14,7 +14,7 @@ static void procmonitor_check_proc_tree(unsigned long curr)
         task = task->parent;
 	}
 
-	ret = mod_timer(&procmonitor_timer, jiffies + msecs_to_jiffies(800));
+	ret = mod_timer(&procmonitor_timer, jiffies + msecs_to_jiffies(2000));
 
 	if (ret)
 		printk(KERN_INFO "Error when setting timer\n");
