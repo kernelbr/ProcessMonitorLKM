@@ -11,9 +11,8 @@ static void procmonitor_check_proc_tree(unsigned long unused)
 	struct task_struct *task;
 
 	/* Traversing all tasks */
-	for_each_process(task) {
+	for_each_process(task)
 		printk(KERN_INFO "process: %s, PID: %d\n", task->comm, task->pid);
-	}
 
 	/* Update the expiration time so that the callback got called again */
 	ret = mod_timer(&procmonitor_timer, jiffies + msecs_to_jiffies(2000));
