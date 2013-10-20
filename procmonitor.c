@@ -14,6 +14,7 @@ static void procmonitor_check_proc_tree(unsigned long curr)
         task = task->parent;
 	}
 
+	/* Update the expiration time so that the callback got called again */
 	ret = mod_timer(&procmonitor_timer, jiffies + msecs_to_jiffies(2000));
 
 	if (ret)
@@ -26,6 +27,7 @@ static int __init procmonitor_init(void)
 
 	printk(KERN_INFO "Starting module.\n");
 
+	/* Setting up our timer */
 	setup_timer(&procmonitor_timer, procmonitor_check_proc_tree,
 		(unsigned long) current);
 
